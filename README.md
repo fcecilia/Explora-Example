@@ -2,4 +2,6 @@ Explora-Example
 ===============
 
 
-Exemple for [explora porject](https://github.com/naiky/Explora)
+Exemple for [Explora project](https://github.com/naiky/Explora)
+
+You need to install explora before see information [here](https://github.com/naiky/Explora)
