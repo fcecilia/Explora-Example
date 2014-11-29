@@ -12,13 +12,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 
 object SimpleMovieReco extends App with DBPedia {
+  val start = System.currentTimeMillis
 
   println(repository)
   val film = DBEntity("The_Matrix")
 
 
   val nodesF = s"""
-  select distinct ?movies  where {
+  select ?movies  where {
     {
       <$film> <http://dbpedia.org/ontology/starring> ?actor.
       ?movies <http://dbpedia.org/ontology/starring> ?actor.
@@ -33,11 +34,15 @@ object SimpleMovieReco extends App with DBPedia {
 
   nodesF.map { nodes =>
 
-    val movies: Stream[String] = nodes.onlyEntities.filter(n => n != film).map(_.uri)
+    val movies: List[String] = nodes.onlyEntities.filter(n => n != film).map(_.uri)
 
-    val by: List[(String, Int)] = movies.groupBy(a => a).map(m => (m._1, m._2.size)).toList.sortBy(-_._2).take(10)
+    val groupBy: Map[String, List[String]] = movies.groupBy(a => a)
+    val map: Map[String, Int] = groupBy.map(m => (m._1, m._2.size))
+    val by = map.toList.sortBy(-_._2).take(10)
 
     by.foreach(println)
+    println(System.currentTimeMillis -start)
+
 
   }
 

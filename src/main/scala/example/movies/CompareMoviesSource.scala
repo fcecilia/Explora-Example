@@ -66,7 +66,7 @@ trait RecoEngine {
 
     requestF.map { nodes =>
 
-      val movies: Stream[String] = nodes.onlyEntities.filter(n => n != film).map(_.uri)
+      val movies: List[String] = nodes.onlyEntities.filter(n => n != film).map(_.uri)
 
       val by: List[(String, Int)] = movies.groupBy(a => a).map(m => (m._1, m._2.size)).toList.sortBy(-_._2).take(7)
 

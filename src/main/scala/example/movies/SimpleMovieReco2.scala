@@ -4,6 +4,8 @@ package example.movies
  * Created by fred on 08/11/2014.
  */
 
+import java.util.Date
+
 import com.explora.ld.dbpedia.DBPedia
 import com.explora.pattern.ExploraHelper._
 
@@ -12,6 +14,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 object SimpleMovieReco2 extends App with DBPedia {
 
+  val start = System.currentTimeMillis
   println(repository)
   val film = DBEntity("The_Matrix")
 
@@ -44,11 +47,12 @@ object SimpleMovieReco2 extends App with DBPedia {
 
     val nodes = requestStarring ++ requestDirector ++ requestSubject
 
-    val movies: Stream[String] = nodes.onlyEntities.filter(n => n != film).map(_.uri)
+    val movies: List[String] = nodes.onlyEntities.filter(n => n != film).map(_.uri)
 
     val by: List[(String, Int)] = movies.groupBy(a => a).map(m => (m._1, m._2.size)).toList.sortBy(-_._2).take(10)
 
     by.foreach(println)
+   println(System.currentTimeMillis -start)
 
   }
 
