@@ -5,16 +5,16 @@ package example.movies
  */
 
 
+import com.explora.executer.sesame.SesameContext
 import com.explora.ld.dbpedia.DBPedia
 import com.explora.pattern.ExploraHelper._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
 
-object SimpleMovieReco extends App with DBPedia {
+object SimpleMovieReco extends App with DBPedia  with SesameContext{
   val start = System.currentTimeMillis
 
-  println(repository)
   val film = DBEntity("The_Matrix")
 
 

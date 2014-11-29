@@ -1,5 +1,6 @@
 package example.base
 
+import com.explora.executer.SesameExecuter._
 import com.explora.model.Repository
 
 import scala.concurrent.ExecutionContext.Implicits.global

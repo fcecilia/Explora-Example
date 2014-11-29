@@ -1,5 +1,6 @@
 package example.base
 
+import com.explora.executer.sesame.SesameContext
 import com.explora.model.Repository
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -10,7 +11,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
  * Date: 14/08/13
  * Time: 17:29
  */
-object RequestBase1 extends App {
+object RequestBase1 extends App with SesameContext{
 
   val rep = Repository("http://fr.dbpedia.org/sparql")
 

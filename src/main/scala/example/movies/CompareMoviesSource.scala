@@ -1,5 +1,6 @@
 package example.movies
 
+import com.explora.executer.sesame.SesameContext
 import com.explora.ld.dbpedia.{DBPedia, DBTrait, LiveDBPedia}
 import com.explora.model.Entity
 import com.explora.pattern.ExploraHelper._
@@ -26,27 +27,28 @@ object Main extends App {
   }
 }
 
-object MoviesRecoDBPedia extends RecoEngine with DBPedia {
+
+
+object MoviesRecoDBPedia extends RecoEngine with DBPedia  {
 
   def start(film: String) = recommand(DBEntity(film))
 
 }
 
-object MoviesRecoLiveDBPedia extends RecoEngine with LiveDBPedia {
+object MoviesRecoLiveDBPedia extends RecoEngine with LiveDBPedia   {
 
   def start(film: String) = recommand(DBEntity(film))
 
 }
 
 
-trait RecoEngine {
+trait RecoEngine  extends SesameContext {
 
   self: DBTrait =>
 
   def recommand(film: Entity): Future[Unit] = {
     val smillis = System.currentTimeMillis()
 
-    println(repository)
     println(wikiPage(film))
 
 
